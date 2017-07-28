@@ -4,6 +4,22 @@
 ::
 ::
 |%
+::  there has to be a better way to get just the response out
+++  blog-posts-r  response/blog-posts
+++  blog-posts  p/(list post)
+++  post
+  $:
+    blog-name/@t
+    id/@u
+    post-url/@t
+    type/@t
+    date/@t
+    timestamp/@u
+    format/@t
+    tags/(list @t)
+  ==
+++  user-info-r  response/user
+++  user  u/user-info
 ++  user-info
   $:
     following/@u
