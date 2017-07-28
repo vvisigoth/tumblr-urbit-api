@@ -4,7 +4,7 @@ responses using query param `?limit=<NUM>`
 
 ## Install
 - `|init-oauth1`
-- enter tumblr api endpoint `api.tumblr.com` and your consumer key and secret
+- enter tumblr api endpoint `api.tumblr.com` and your consumer key and secret for [your app](https://www.tumblr.com/oauth/apps)
 - try `+https://api.tumblr.com/user/info`
 
 ## Connector commands
