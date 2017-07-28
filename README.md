@@ -10,11 +10,11 @@ responses using query param `?limit=<NUM>`
 ## Connector commands
 To see the information for the authenticated user
 `/+  tumblr`
-`.^(user-info:tumblr /=tumblr=/user/info/user-info)`
+`.^(user-info:tumblr %gx /=tumblr=/user/info/tumblr-user-info)`
 
 To see posts for a blog (not fully fleshed out yet)
 `/+  tumblr`
-`.^((list post:tumblr) /=tumblr=/blog/<identifier>/posts/blog-posts)`
+`.^((list post:tumblr) %gx /=tumblr=/blog/<identifier>/posts/tumblr-blog-posts)`
 
 
 
