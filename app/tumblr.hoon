@@ -8,7 +8,7 @@
 ::
 /?  314
 /-  tumblr
-/+  connector
+/+  tumblr-parse, connector
 ::
 !:
 =>  |%
@@ -25,6 +25,7 @@
       $%  {$arch arch}
           {$json json}
           {$user-info user-info:tumblr}
+          {$tumblr-blog-posts (list post:tumblr)}
           {$null $~}
       ==
     --
@@ -39,14 +40,20 @@
 ::
 ++  places
   |=  wir/wire
-  ~&  wir
   ^-  (list place:connector)
   =+  (helpers:connector ost.hid wir "https://api.tumblr.com/v2")
   =>  |%
-      ++  user-info
+      ++  read-json
         |=  jon/json  ^-  (unit sub-result)
         ~&  jon
         `json+jon
+      ++  read-user-info
+        |=  jon/json  ^-  (unit sub-result)
+        `user-info+(need (user-info:tumblr-parse jon))
+      ++  read-blog-posts
+        |=  jon/json  ^-  (unit sub-result)
+        ::`tumblr-blog-posts+(need (blog-posts-r:tumblr-parse jon))
+        `tumblr-blog-posts+(need (blog-posts-r:tumblr-parse jon))
       --
   :~  ^-  place                       ::  /user
       :*  guard={$user $~}
@@ -59,7 +66,14 @@
       :*  guard={$user $info $~}
           read-x=(read-get /user/info)
           read-y=read-null
-          sigh-x=user-info
+          sigh-x=read-user-info
+          sigh-y=sigh-strange
+      ==
+      ^-  place                       ::  /blog/<ident>/posts
+      :*  guard={$blog @t $posts $~}
+          read-x=|=(a/path (get /blog/[+<.a]/posts))
+          read-y=read-null
+          sigh-x=read-blog-posts
           sigh-y=sigh-strange
       ==
   ==
@@ -72,7 +86,6 @@
 ::
 ++  peer-scry
   |=  pax/path
-  ~&  [%path pax]
   ^-  {(list move) _+>.$}
   ?>  ?=({care *} pax)
   :_  +>.$  :_  ~
@@ -83,10 +96,8 @@
 ::
 ++  sigh-httr
   |=  {way/wire res/httr}
-  ~&  [%way way]
   ^-  {(list move) _+>.$}
   ?.  ?=({$read care @ *} way)
-    ~&  res=res
     [~ +>.$]
   =*  style  i.way
   =*  ren  i.t.way
@@ -110,7 +121,6 @@
 ++  peek
   ::|=  {ren/@tas tyl/path}
   |=  tyl/path
-  ~&  [%peek-path tyl]
   ^-  (unit (unit (pair mark *)))
   ~ ::``noun/[ren tyl]
 --
