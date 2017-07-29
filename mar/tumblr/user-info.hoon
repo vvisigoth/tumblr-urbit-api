@@ -1,5 +1,6 @@
 ::
-::  /hoon/change-phase/taskk/mar
+::  /hoon/user-info/tumblr/mar
+::
 /?    310
 /-  tumblr
 /+  tumblr-parse
@@ -11,6 +12,7 @@
     |=  jon/^json
     ^-  user-info:tumblr
     %-  need
-    (user-info:tumblr-parse jon)
+    (user-info-r:tumblr-parse jon)
+  ++  noun  info
   --
 --
