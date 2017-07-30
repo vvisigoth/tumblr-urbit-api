@@ -53,7 +53,106 @@
   :_  ~
   'posts'^(ar post)
 ++  post
-  ^-  $-(json (unit post:tumblr))
+  |=  jon/json
+  ^-  (unit post:tumblr)
+  =/  type  ((ot 'type'^so ~):jo jon)
+  ?~  type
+    ~
+  ?:  =(u.type 'photo')
+    =/  a  (photo-post jon)
+    ?~  a  ~
+    `[%photo-post (need a)]
+  ?:  =(u.type 'link')
+    =/  b  (link-post jon)
+    ?~  b  ~
+    `[%link-post (need b)]
+  =/  c  (def-post jon)
+  ?~  c  ~
+  `[%def-post (need c)]
+  ::?-  type
+  ::  'photo'  (def-post jon)
+  ::  'link'  (def-post jon)
+  ::  'quote'  (def-post jon)
+  ::  ::'video'  (def-post jon)
+  ::  ::'text'  (def-post jon)
+  ::==
+++  photo
+  ^-  $-(json (unit photo:tumblr))
+  =+  jo
+  %-  ot
+  :~  'caption'^so
+      'original_size'^photo-info
+      'alt_sizes'^(ar photo-info)
+  ==
+++  quote-post
+  |=  jon/json
+  ^-  (unit post:tumblr)
+  =/  out  %-  =<  
+      %-  ot
+      :~  'blog_name'^so
+          'id'^ni
+          'post_url'^so
+          'type'^so
+          'date'^so
+          'timestamp'^ni
+          'tags'^(ar so)
+          'source_url'^so
+          'source_title'^so
+          'text'^so
+          'source'^so
+      ==
+      jo
+  jon
+  ?~  out
+    ~
+  %=  out
+    u  [%quote-post (need out)]
+  ==
+++  photo-info
+  ^-  $-(json (unit {width/@u height/@u url/@t}))
+  =+  jo
+  %-  ot
+  :~  'width'^ni
+      'height'^ni
+      'url'^so
+  ==
+++  photo-post
+  ^-  $-(json (unit photo-post:tumblr))
+  =+  jo
+  %-  ot
+  :~  'blog_name'^so
+      'id'^ni
+      'post_url'^so
+      'type'^so
+      'date'^so
+      'timestamp'^ni
+      'format'^so
+      'tags'^(ar so)
+      'caption'^so
+      'photos'^(ar photo)
+  ==
+++  link-post
+  ^-  $-(json (unit link-post:tumblr))
+  =+  jo
+  %-  ot
+  :~  'blog_name'^so
+      'id'^ni
+      'post_url'^so
+      'type'^so
+      'date'^so
+      'timestamp'^ni
+      'format'^so
+      'tags'^(ar so)
+      'title'^so
+      'url'^so
+      ::'link_author'^so
+      ::'excerpt'^so
+      ::'publisher'^so
+      'photos'^(ar photo)
+      ::'summary'^so
+  ==
+++  def-post
+  ^-  $-(json (unit def-post:tumblr))
   =+  jo
   %-  ot
   :~  'blog_name'^so
