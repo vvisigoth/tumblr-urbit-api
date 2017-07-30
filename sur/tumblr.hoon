@@ -12,7 +12,9 @@
   {$def-post def-post}
   {$photo-post photo-post}
   {$quote-post quote-post}
+  {$text-post text-post}
   {$link-post link-post}
+  {$video-post video-post}
   ==
 ++  def-post
   $:
@@ -69,16 +71,26 @@
     blog-name/@t
     id/@u
     post-url/@t
-    type/@t  :: can be $%
-    date/time
+    type/@t
+    date/@t
     timestamp/@u
-    state/@t
     format/@t
-    reblog-key/@t
     tags/(list @t)
-    note-count/@u
     title/@t
-    body/@t :: is this right?
+    body/@t
+  ==
+++  video-post
+  $:
+    blog-name/@t
+    id/@u
+    post-url/@t
+    type/@t 
+    date/@t
+    timestamp/@u
+    format/@t
+    tags/(list @t)
+    caption/@t
+    player/(list {width/@u embed-code/@t})
   ==
 ++  link-post
   $:

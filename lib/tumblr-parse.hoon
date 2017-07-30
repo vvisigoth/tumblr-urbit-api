@@ -56,6 +56,7 @@
   |=  jon/json
   ^-  (unit post:tumblr)
   =/  type  ((ot 'type'^so ~):jo jon)
+  ~&  type
   ?~  type
     ~
   ?:  =(u.type 'photo')
@@ -66,9 +67,18 @@
     =/  b  (link-post jon)
     ?~  b  ~
     `[%link-post (need b)]
+  ?:  =(u.type 'video')
+    =/  d  (video-post jon)
+    ?~  d  ~
+    `[%video-post (need d)]
+  ?:  =(u.type 'text')
+    =/  e  (text-post jon)
+    ?~  e  ~
+    `[%text-post (need e)]
   =/  c  (def-post jon)
   ?~  c  ~
   `[%def-post (need c)]
+  :: 
   ::?-  type
   ::  'photo'  (def-post jon)
   ::  'link'  (def-post jon)
@@ -116,6 +126,13 @@
       'height'^ni
       'url'^so
   ==
+++  player-info
+  ^-  $-(json (unit {width/@u embed-code/@t}))
+  =+  jo
+  %-  ot
+  :~  'width'^ni
+      'embed_code'^so
+  ==
 ++  photo-post
   ^-  $-(json (unit photo-post:tumblr))
   =+  jo
@@ -130,6 +147,22 @@
       'tags'^(ar so)
       'caption'^so
       'photos'^(ar photo)
+  ==
+::
+++  video-post
+  ^-  $-(json (unit video-post:tumblr))
+  =+  jo
+  %-  ot
+  :~  'blog_name'^so
+      'id'^ni
+      'post_url'^so
+      'type'^so
+      'date'^so
+      'timestamp'^ni
+      'format'^so
+      'tags'^(ar so)
+      'caption'^so
+      'player'^(ar player-info)
   ==
 ++  link-post
   ^-  $-(json (unit link-post:tumblr))
@@ -150,6 +183,21 @@
       ::'publisher'^so
       'photos'^(ar photo)
       ::'summary'^so
+  ==
+++  text-post
+  ^-  $-(json (unit text-post:tumblr))
+  =+  jo
+  %-  ot
+  :~  'blog_name'^so
+      'id'^ni
+      'post_url'^so
+      'type'^so
+      'date'^so
+      'timestamp'^ni
+      'format'^so
+      'tags'^(ar so)
+      'title'^so
+      'body'^so
   ==
 ++  def-post
   ^-  $-(json (unit def-post:tumblr))
