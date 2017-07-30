@@ -8,6 +8,13 @@
 ++  blog-posts-r  response/blog-posts
 ++  blog-posts  p/(list post)
 ++  post
+  $%
+  {$def-post def-post}
+  {$photo-post photo-post}
+  {$quote-post quote-post}
+  {$link-post link-post}
+  ==
+++  def-post
   $:
     blog-name/@t
     id/@u
@@ -49,13 +56,9 @@
     id/@u
     post-url/@t
     type/@t  :: can be $%
-    date/time
+    date/@t
     timestamp/@u
-    state/@t
-    format/@t
-    reblog-key/@t
     tags/(list @t)
-    note-count/@u
     source-url/@t
     source-title/@t
     text/@t
@@ -83,20 +86,17 @@
     id/@u
     post-url/@t
     type/@t  :: can be $%
-    date/time
+    date/@t
     timestamp/@u
-    state/@t
     format/@t
-    reblog-key/@t
     tags/(list @t)
-    note-count/@u
     title/@t
     url/@t
-    author/@t
-    excerpt/@t
-    publisher/@t
+    ::link-author/@t
+    ::excerpt/@t
+    ::publisher/@t
     photos/(list photo)
-    description/@t
+    ::summary/@t
   ==
 ++  photo-post
   $:
@@ -104,13 +104,10 @@
     id/@u
     post-url/@t
     type/@t  :: can be $%
-    date/time
+    date/@t
     timestamp/@u
-    state/@t
     format/@t
-    reblog-key/@t
     tags/(list @t)
-    note-count/@u
     caption/@t
     photos/(list photo)
   ==
