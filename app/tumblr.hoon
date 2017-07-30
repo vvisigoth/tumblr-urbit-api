@@ -24,7 +24,7 @@
     ++  sub-result
       $%  {$arch arch}
           {$json json}
-          {$user-info user-info:tumblr}
+          {$tumblr-user-info user-info:tumblr}
           {$tumblr-blog-posts (list post:tumblr)}
           {$null $~}
       ==
@@ -45,14 +45,13 @@
   =>  |%
       ++  read-json
         |=  jon/json  ^-  (unit sub-result)
-        ~&  jon
         `json+jon
       ++  read-user-info
         |=  jon/json  ^-  (unit sub-result)
-        `user-info+(need (user-info:tumblr-parse jon))
+        `tumblr-user-info+(need (user-info-r:tumblr-parse jon))
       ++  read-blog-posts
         |=  jon/json  ^-  (unit sub-result)
-        ::`tumblr-blog-posts+(need (blog-posts-r:tumblr-parse jon))
+        ~&  jon
         `tumblr-blog-posts+(need (blog-posts-r:tumblr-parse jon))
       --
   :~  ^-  place                       ::  /user
