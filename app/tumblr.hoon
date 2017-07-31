@@ -68,6 +68,13 @@
           sigh-x=read-user-info
           sigh-y=sigh-strange
       ==
+      ^-  place                       ::  /user/dashboard
+      :*  guard={$user $dashboard $~}
+          read-x=(read-get /user/dashboard)
+          read-y=read-null
+          sigh-x=read-blog-posts
+          sigh-y=sigh-strange
+      ==
       ^-  place                       ::  /blog/<ident>/posts
       :*  guard={$blog @t $posts $~}
           read-x=|=(a/path (get /blog/[+<.a]/posts))
