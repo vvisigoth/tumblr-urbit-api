@@ -92,6 +92,7 @@
 ::
 ++  peer-scry
   |=  pax/path
+  ~&  [%pax pax]
   ^-  {(list move) _+>.$}
   ?>  ?=({care *} pax)
   :_  +>.$  :_  ~
@@ -102,6 +103,7 @@
 ::
 ++  sigh-httr
   |=  {way/wire res/httr}
+  ~&  [%way way]
   ^-  {(list move) _+>.$}
   ?.  ?=({$read care @ *} way)
     [~ +>.$]
@@ -120,6 +122,14 @@
   ^-  {(list move) _+>.$}
   %-  (slog >%gh-sigh-tang< tan)
   [[ost.hid %diff null+~]~ +>.$]
+::
+++  poke-path
+  |=  pax/path
+  ~&  [%poke pax]
+  ^-  {(list move) _+>.$}
+  ?>  ?=({care *} pax)
+  :_  +>.$  :_  ~
+  (read:connector ost.hid (places %read pax) i.pax t.pax)
 ::
 ::  We can't actually give the response to pretty much anything
 ::  without blocking, so we just block unconditionally.
