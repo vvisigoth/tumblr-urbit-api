@@ -1,5 +1,5 @@
 # Tumblr Urbit API integration
-*Note* The Tumblr API does not accurately reflect all responses. I have implemented 
+*Note* The Tumblr API docs do not accurately reflect all responses. I have implemented 
 the major keys of blog post responses, but there are some missing. If you want 
 the "reblog tag," you'll have to work for it ;)
 
