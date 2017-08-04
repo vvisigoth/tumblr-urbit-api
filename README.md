@@ -1,6 +1,7 @@
 # Tumblr Urbit API integration
-*Note* Tumblr API responses very large. For right now, explicitly limit 
-responses using query param `?limit=<NUM>`
+*Note* The Tumblr API does not accurately reflect all responses. I have implemented 
+the major keys of blog post responses, but there are some missing. If you want 
+the "reblog tag," you'll have to work for it ;)
 
 ## Install
 - `|init-oauth1`
@@ -19,6 +20,15 @@ To see posts for a blog (not fully fleshed out yet)
 :dojo> /+  tumblr
 :dojo> .^((list post:tumblr) %gx /=tumblr=/blog/<identifier>/posts/tumblr-blog-posts)
 ```
+To see all posts, you can also run the generator with either a blog identifier 
+or the `@t` 'dashboard'. The latter will show the latest posts from your dashboard.
+```
+:dojo> +tumblr/feed <identifier|'dashboard'>
+```
+
+## Todo
+- Accept `start-from` post id to make it easier to page through returns
+- Better poke logic for accessing from web
 
 
 
