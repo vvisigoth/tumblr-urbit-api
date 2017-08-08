@@ -4,6 +4,8 @@
 ::  .^(user-info:tumblr %gx /=tumblr=/user/info/tumblr-user-info)
 ::  To see posts for a blog
 ::  .^((list post:tumblr) %gx /=tumblr=/blog/<identifier>/posts/tumblr-blog-posts)
+::  To see posts for a blog starting at an offset
+::  .^((list post:tumblr) %gx /=tumblr=/blog/<identifier>/posts/<offset num>/tumblr-blog-posts)
 ::  You can also use the generator to see your dashboard or a blog
 ::  +tumblr/feed <identifier|'dashboard'>
 ::
